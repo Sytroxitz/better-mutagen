@@ -1,0 +1,36 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2022,
+    "sourceType": "module"
+  },
+  "plugins": ["@typescript-eslint", "jsdoc"],
+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+  "rules": {
+    "brace-style": "off",
+    "@typescript-eslint/brace-style": ["error", "allman", { "allowSingleLine": false }],
+    "curly": ["error", "all"],
+    "no-trailing-spaces": "error",
+    "indent": ["error", "tab", { "SwitchCase": 1 }],
+    "no-tabs": "off",
+    "no-mixed-spaces-and-tabs": "error",
+    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+    "@typescript-eslint/no-explicit-any": "off",
+    "jsdoc/require-jsdoc": [
+      "error",
+      {
+        "publicOnly": false,
+        "require": {
+          "FunctionDeclaration": true,
+          "MethodDefinition": true,
+          "ClassDeclaration": true,
+          "ArrowFunctionExpression": false,
+          "FunctionExpression": false
+        }
+      }
+    ],
+    "jsdoc/require-description": ["error", { "contexts": ["any"] }]
+  },
+  "ignorePatterns": ["dist", "out", "node_modules", "*.js"]
+}

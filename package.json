@@ -1,0 +1,319 @@
+{
+  "name": "better-mutagen",
+  "displayName": "Better Mutagen",
+  "description": "Manage Mutagen file-sync sessions from VS Code. Installs and manages its own Mutagen binary — nothing is left behind when you uninstall.",
+  "version": "0.1.0",
+  "private": true,
+  "publisher": "local",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "mutagenExplorer",
+          "title": "Mutagen",
+          "icon": "media/mutagen.svg"
+        }
+      ]
+    },
+    "views": {
+      "mutagenExplorer": [
+        {
+          "id": "mutagenSessions",
+          "name": "Sync Sessions"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "mutagenSessions",
+        "contents": "No sync sessions yet.\n[Create Sync Session](command:mutagen.createSession)\nMakes sure the Mutagen daemon is running and lets you create a two-way sync between a local folder and a remote/local target."
+      }
+    ],
+    "commands": [
+      {
+        "command": "mutagen.createSession",
+        "title": "Create Sync Session",
+        "category": "Mutagen",
+        "icon": "$(add)"
+      },
+      {
+        "command": "mutagen.refresh",
+        "title": "Refresh Sessions",
+        "category": "Mutagen",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "mutagen.pauseSession",
+        "title": "Pause",
+        "category": "Mutagen",
+        "icon": "$(debug-pause)"
+      },
+      {
+        "command": "mutagen.resumeSession",
+        "title": "Resume",
+        "category": "Mutagen",
+        "icon": "$(debug-start)"
+      },
+      {
+        "command": "mutagen.terminateSession",
+        "title": "Terminate",
+        "category": "Mutagen",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "mutagen.resetSession",
+        "title": "Reset (re-scan from scratch)",
+        "category": "Mutagen"
+      },
+      {
+        "command": "mutagen.flushSession",
+        "title": "Flush (force synchronization cycle)",
+        "category": "Mutagen"
+      },
+      {
+        "command": "mutagen.showLogs",
+        "title": "Show Logs",
+        "category": "Mutagen"
+      },
+      {
+        "command": "mutagen.reinstallBinary",
+        "title": "Reinstall Mutagen Binary",
+        "category": "Mutagen"
+      },
+      {
+        "command": "mutagen.openSessionDetails",
+        "title": "Show Session Details",
+        "category": "Mutagen"
+      },
+      {
+        "command": "mutagen.startProjectSessions",
+        "title": "Start Project Sessions (from .mutagen.yml)",
+        "category": "Mutagen"
+      },
+      {
+        "command": "mutagen.stopProjectSessions",
+        "title": "Stop Project Sessions (from .mutagen.yml)",
+        "category": "Mutagen"
+      },
+      {
+        "command": "mutagen.exportSessions",
+        "title": "Export Sessions...",
+        "category": "Mutagen",
+        "icon": "$(export)"
+      },
+      {
+        "command": "mutagen.importSessions",
+        "title": "Import Sessions...",
+        "category": "Mutagen",
+        "icon": "$(cloud-download)"
+      },
+      {
+        "command": "mutagen.hideSession",
+        "title": "Hide Session",
+        "category": "Mutagen",
+        "icon": "$(eye-closed)"
+      },
+      {
+        "command": "mutagen.unhideSession",
+        "title": "Unhide Session",
+        "category": "Mutagen",
+        "icon": "$(eye)"
+      },
+      {
+        "command": "mutagen.showHiddenSessions",
+        "title": "Show Hidden Sessions",
+        "category": "Mutagen",
+        "icon": "$(eye-closed)"
+      },
+      {
+        "command": "mutagen.hideHiddenSessionsAgain",
+        "title": "Hide Hidden Sessions Again",
+        "category": "Mutagen",
+        "icon": "$(eye)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "mutagen.createSession",
+          "when": "view == mutagenSessions",
+          "group": "navigation@1"
+        },
+        {
+          "command": "mutagen.refresh",
+          "when": "view == mutagenSessions",
+          "group": "navigation@2"
+        },
+        {
+          "command": "mutagen.showHiddenSessions",
+          "when": "view == mutagenSessions && !mutagen.showHidden",
+          "group": "navigation@3"
+        },
+        {
+          "command": "mutagen.hideHiddenSessionsAgain",
+          "when": "view == mutagenSessions && mutagen.showHidden",
+          "group": "navigation@3"
+        },
+        {
+          "command": "mutagen.exportSessions",
+          "when": "view == mutagenSessions",
+          "group": "1_io@1"
+        },
+        {
+          "command": "mutagen.importSessions",
+          "when": "view == mutagenSessions",
+          "group": "1_io@2"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "mutagen.pauseSession",
+          "when": "view == mutagenSessions && viewItem =~ /canPause/",
+          "group": "inline@1"
+        },
+        {
+          "command": "mutagen.resumeSession",
+          "when": "view == mutagenSessions && viewItem =~ /canResume/",
+          "group": "inline@1"
+        },
+        {
+          "command": "mutagen.terminateSession",
+          "when": "view == mutagenSessions && viewItem =~ /session/",
+          "group": "inline@2"
+        },
+        {
+          "command": "mutagen.resetSession",
+          "when": "view == mutagenSessions && viewItem =~ /session/",
+          "group": "1_actions"
+        },
+        {
+          "command": "mutagen.flushSession",
+          "when": "view == mutagenSessions && viewItem =~ /session/",
+          "group": "1_actions"
+        },
+        {
+          "command": "mutagen.openSessionDetails",
+          "when": "view == mutagenSessions && viewItem =~ /session/",
+          "group": "2_info"
+        },
+        {
+          "command": "mutagen.hideSession",
+          "when": "view == mutagenSessions && viewItem =~ /visible/",
+          "group": "inline@3"
+        },
+        {
+          "command": "mutagen.unhideSession",
+          "when": "view == mutagenSessions && viewItem =~ /hidden/",
+          "group": "inline@3"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "mutagen.pauseSession",
+          "when": "false"
+        },
+        {
+          "command": "mutagen.resumeSession",
+          "when": "false"
+        },
+        {
+          "command": "mutagen.terminateSession",
+          "when": "false"
+        },
+        {
+          "command": "mutagen.resetSession",
+          "when": "false"
+        },
+        {
+          "command": "mutagen.flushSession",
+          "when": "false"
+        },
+        {
+          "command": "mutagen.openSessionDetails",
+          "when": "false"
+        },
+        {
+          "command": "mutagen.hideSession",
+          "when": "false"
+        },
+        {
+          "command": "mutagen.unhideSession",
+          "when": "false"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Mutagen",
+      "properties": {
+        "mutagen.binary.version": {
+          "type": "string",
+          "default": "latest",
+          "description": "Mutagen release to install (\"latest\" or a specific tag like \"v0.18.1\")."
+        },
+        "mutagen.binary.customPath": {
+          "type": "string",
+          "default": "",
+          "description": "Absolute path to a mutagen executable to use instead of the extension-managed one. Leave empty to let the extension download and manage its own copy."
+        },
+        "mutagen.autoStartDaemon": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically start the Mutagen daemon when the extension activates."
+        },
+        "mutagen.projectConfigFile": {
+          "type": "string",
+          "default": ".mutagen.yml",
+          "description": "Name of the project configuration file (relative to the workspace root) used for auto-started sync sessions."
+        },
+        "mutagen.autoStartProjectOnOpen": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically start the project's sync sessions when the workspace is opened, if a project configuration file is present."
+        },
+        "mutagen.refreshIntervalMs": {
+          "type": "number",
+          "default": 2000,
+          "description": "How often (in milliseconds) to poll Mutagen for session status while the Sync Sessions view is visible."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "node esbuild.js",
+    "watch": "node esbuild.js --watch",
+    "watch:esbuild": "node esbuild.js --watch",
+    "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
+    "check-types": "tsc --noEmit -p tsconfig.json",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix",
+    "vscode:prepublish": "npm run check-types && npm run lint && node esbuild.js --production",
+    "package": "npm run vscode:prepublish && vsce package",
+    "vscode:uninstall": "node ./dist/uninstall.js"
+  },
+  "devDependencies": {
+    "@types/adm-zip": "^0.5.5",
+    "@types/node": "^20.14.0",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
+    "@vscode/vsce": "^2.32.0",
+    "esbuild": "^0.23.0",
+    "eslint": "^8.57.0",
+    "eslint-plugin-jsdoc": "^48.11.0",
+    "typescript": "^5.5.0"
+  },
+  "dependencies": {
+    "adm-zip": "^0.5.14",
+    "tar": "^7.4.0"
+  }
+}

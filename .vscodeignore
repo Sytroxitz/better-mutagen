@@ -1,0 +1,14 @@
+.vscode/**
+.vscode-test/**
+src/**
+out/**
+node_modules/**
+bin/**
+.gitignore
+.yarnrc
+esbuild.js
+tsconfig.json
+**/.eslintrc*
+**/*.map
+**/*.ts
+**/.git/**
