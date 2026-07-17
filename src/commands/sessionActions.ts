@@ -19,7 +19,7 @@ async function withErrorReporting(action: string, fn: () => Promise<void>): Prom
 	catch (err)
 	{
 		logError(`Failed to ${action}`, err);
-		const choice = await vscode.window.showErrorMessage(`Mutagen: failed to ${action}: ${(err as Error).message}`, "Show Logs");
+		const choice = await vscode.window.showErrorMessage(`Better Mutagen: failed to ${action}: ${(err as Error).message}`, "Show Logs");
 		if (choice === "Show Logs")
 		{
 			showOutputChannel();

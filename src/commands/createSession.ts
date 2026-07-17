@@ -130,12 +130,12 @@ export async function runCreateSessionWizard(client: MutagenClient, provider: Se
 				})
 		);
 		await provider.refresh();
-		vscode.window.showInformationMessage(`Mutagen: sync session "${name || `${alpha} ↔ ${beta}`}" created.`);
+		vscode.window.showInformationMessage(`Better Mutagen: sync session "${name || `${alpha} ↔ ${beta}`}" created.`);
 	}
 	catch (err)
 	{
 		logError("Failed to create sync session", err);
-		const choice = await vscode.window.showErrorMessage(`Mutagen: failed to create sync session: ${(err as Error).message}`, "Show Logs");
+		const choice = await vscode.window.showErrorMessage(`Better Mutagen: failed to create sync session: ${(err as Error).message}`, "Show Logs");
 		if (choice === "Show Logs")
 		{
 			showOutputChannel();

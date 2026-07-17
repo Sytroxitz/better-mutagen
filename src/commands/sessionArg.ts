@@ -35,7 +35,7 @@ export async function resolveSession(
 	const sessions = provider.getVisibleSessions();
 	if (sessions.length === 0)
 	{
-		vscode.window.showInformationMessage("Mutagen: no sync sessions to act on yet.");
+		vscode.window.showInformationMessage("Better Mutagen: no sync sessions to act on yet.");
 		return undefined;
 	}
 	const picked = await vscode.window.showQuickPick(

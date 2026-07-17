@@ -27,7 +27,7 @@ export function registerVisibilityCommands(context: vscode.ExtensionContext, pro
 			catch (err)
 			{
 				logError(`Failed to hide "${label(session)}"`, err);
-				const choice = await vscode.window.showErrorMessage(`Mutagen: failed to hide "${label(session)}": ${(err as Error).message}`, "Show Logs");
+				const choice = await vscode.window.showErrorMessage(`Better Mutagen: failed to hide "${label(session)}": ${(err as Error).message}`, "Show Logs");
 				if (choice === "Show Logs")
 				{
 					showOutputChannel();
@@ -49,7 +49,7 @@ export function registerVisibilityCommands(context: vscode.ExtensionContext, pro
 			catch (err)
 			{
 				logError(`Failed to unhide "${label(session)}"`, err);
-				const choice = await vscode.window.showErrorMessage(`Mutagen: failed to unhide "${label(session)}": ${(err as Error).message}`, "Show Logs");
+				const choice = await vscode.window.showErrorMessage(`Better Mutagen: failed to unhide "${label(session)}": ${(err as Error).message}`, "Show Logs");
 				if (choice === "Show Logs")
 				{
 					showOutputChannel();

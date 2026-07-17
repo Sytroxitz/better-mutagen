@@ -24,7 +24,7 @@ export async function autoStartProjectSessions(client: MutagenClient): Promise<v
 		{
 			logError(`Failed to auto-start project sessions from ${project.absolutePath}`, err);
 			const choice = await vscode.window.showWarningMessage(
-				`Mutagen: failed to start project sessions from "${project.fileName}" in ${project.workspaceFolder.name}: ${(err as Error).message}`,
+				`Better Mutagen: failed to start project sessions from "${project.fileName}" in ${project.workspaceFolder.name}: ${(err as Error).message}`,
 				"Show Logs"
 			);
 			if (choice === "Show Logs")
@@ -46,7 +46,7 @@ export function registerProjectCommands(context: vscode.ExtensionContext, client
 			const projects = findProjectFiles();
 			if (projects.length === 0)
 			{
-				vscode.window.showInformationMessage("Mutagen: no project configuration file found in the open workspace folder(s).");
+				vscode.window.showInformationMessage("Better Mutagen: no project configuration file found in the open workspace folder(s).");
 				return;
 			}
 			for (const project of projects)
@@ -59,7 +59,7 @@ export function registerProjectCommands(context: vscode.ExtensionContext, client
 				{
 					logError(`Failed to start project sessions from ${project.absolutePath}`, err);
 					const choice = await vscode.window.showErrorMessage(
-						`Mutagen: failed to start project sessions from "${project.fileName}": ${(err as Error).message}`,
+						`Better Mutagen: failed to start project sessions from "${project.fileName}": ${(err as Error).message}`,
 						"Show Logs"
 					);
 					if (choice === "Show Logs")
@@ -76,7 +76,7 @@ export function registerProjectCommands(context: vscode.ExtensionContext, client
 			const projects = findProjectFiles();
 			if (projects.length === 0)
 			{
-				vscode.window.showInformationMessage("Mutagen: no project configuration file found in the open workspace folder(s).");
+				vscode.window.showInformationMessage("Better Mutagen: no project configuration file found in the open workspace folder(s).");
 				return;
 			}
 			for (const project of projects)
@@ -89,7 +89,7 @@ export function registerProjectCommands(context: vscode.ExtensionContext, client
 				{
 					logError(`Failed to stop project sessions from ${project.absolutePath}`, err);
 					const choice = await vscode.window.showErrorMessage(
-						`Mutagen: failed to stop project sessions from "${project.fileName}": ${(err as Error).message}`,
+						`Better Mutagen: failed to stop project sessions from "${project.fileName}": ${(err as Error).message}`,
 						"Show Logs"
 					);
 					if (choice === "Show Logs")

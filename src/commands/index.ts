@@ -35,13 +35,13 @@ export function registerCommands(
 				await binaryManager.reinstall();
 				await client.ensureDaemonRunning();
 				await provider.refresh();
-				vscode.window.showInformationMessage("Mutagen: binary reinstalled successfully.");
+				vscode.window.showInformationMessage("Better Mutagen: binary reinstalled successfully.");
 			}
 			catch (err)
 			{
 				logError("Failed to reinstall mutagen binary", err);
 				const choice = await vscode.window.showErrorMessage(
-					`Mutagen: failed to reinstall the binary: ${(err as Error).message}`,
+					`Better Mutagen: failed to reinstall the binary: ${(err as Error).message}`,
 					"Show Logs"
 				);
 				if (choice === "Show Logs")

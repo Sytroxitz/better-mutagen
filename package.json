@@ -20,7 +20,7 @@
       "activitybar": [
         {
           "id": "mutagenExplorer",
-          "title": "Mutagen",
+          "title": "Better Mutagen",
           "icon": "media/mutagen.svg"
         }
       ]
@@ -43,102 +43,102 @@
       {
         "command": "mutagen.createSession",
         "title": "Create Sync Session",
-        "category": "Mutagen",
+        "category": "Better Mutagen",
         "icon": "$(add)"
       },
       {
         "command": "mutagen.refresh",
         "title": "Refresh Sessions",
-        "category": "Mutagen",
+        "category": "Better Mutagen",
         "icon": "$(refresh)"
       },
       {
         "command": "mutagen.pauseSession",
         "title": "Pause",
-        "category": "Mutagen",
+        "category": "Better Mutagen",
         "icon": "$(debug-pause)"
       },
       {
         "command": "mutagen.resumeSession",
         "title": "Resume",
-        "category": "Mutagen",
+        "category": "Better Mutagen",
         "icon": "$(debug-start)"
       },
       {
         "command": "mutagen.terminateSession",
         "title": "Terminate",
-        "category": "Mutagen",
+        "category": "Better Mutagen",
         "icon": "$(trash)"
       },
       {
         "command": "mutagen.resetSession",
         "title": "Reset (re-scan from scratch)",
-        "category": "Mutagen"
+        "category": "Better Mutagen"
       },
       {
         "command": "mutagen.flushSession",
         "title": "Flush (force synchronization cycle)",
-        "category": "Mutagen"
+        "category": "Better Mutagen"
       },
       {
         "command": "mutagen.showLogs",
         "title": "Show Logs",
-        "category": "Mutagen"
+        "category": "Better Mutagen"
       },
       {
         "command": "mutagen.reinstallBinary",
         "title": "Reinstall Mutagen Binary",
-        "category": "Mutagen"
+        "category": "Better Mutagen"
       },
       {
         "command": "mutagen.openSessionDetails",
         "title": "Show Session Details",
-        "category": "Mutagen"
+        "category": "Better Mutagen"
       },
       {
         "command": "mutagen.startProjectSessions",
         "title": "Start Project Sessions (from .mutagen.yml)",
-        "category": "Mutagen"
+        "category": "Better Mutagen"
       },
       {
         "command": "mutagen.stopProjectSessions",
         "title": "Stop Project Sessions (from .mutagen.yml)",
-        "category": "Mutagen"
+        "category": "Better Mutagen"
       },
       {
         "command": "mutagen.exportSessions",
         "title": "Export Sessions...",
-        "category": "Mutagen",
+        "category": "Better Mutagen",
         "icon": "$(export)"
       },
       {
         "command": "mutagen.importSessions",
         "title": "Import Sessions...",
-        "category": "Mutagen",
+        "category": "Better Mutagen",
         "icon": "$(cloud-download)"
       },
       {
         "command": "mutagen.hideSession",
         "title": "Hide Session",
-        "category": "Mutagen",
+        "category": "Better Mutagen",
         "icon": "$(eye-closed)"
       },
       {
         "command": "mutagen.unhideSession",
         "title": "Unhide Session",
-        "category": "Mutagen",
+        "category": "Better Mutagen",
         "icon": "$(eye)"
       },
       {
         "command": "mutagen.showHiddenSessions",
         "title": "Show Hidden Sessions",
-        "category": "Mutagen",
+        "category": "Better Mutagen",
         "icon": "$(eye-closed)"
       },
       {
         "command": "mutagen.hideHiddenSessionsAgain",
         "title": "Hide Hidden Sessions Again",
-        "category": "Mutagen",
+        "category": "Better Mutagen",
         "icon": "$(eye)"
       }
     ],
@@ -253,7 +253,7 @@
       ]
     },
     "configuration": {
-      "title": "Mutagen",
+      "title": "Better Mutagen",
       "properties": {
         "mutagen.binary.version": {
           "type": "string",

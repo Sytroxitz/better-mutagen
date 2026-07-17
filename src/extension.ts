@@ -64,7 +64,7 @@ export async function activate(context: vscode.ExtensionContext): Promise<void>
 				{
 					vscode.window
 						.showInformationMessage(
-							"Mutagen: binary installed successfully. Reload the window to finish setting up Better Mutagen.",
+							"Better Mutagen: binary installed successfully. Reload the window to finish setting up.",
 							"Reload Window"
 						)
 						.then((choice) =>

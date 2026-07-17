@@ -3,16 +3,16 @@ import * as vscode from "vscode";
 let channel: vscode.OutputChannel | undefined;
 
 /**
- * Creates the shared "Mutagen" output channel and ties its lifetime to the extension.
+ * Creates the shared "Better Mutagen" output channel and ties its lifetime to the extension.
  */
 export function initLogger(context: vscode.ExtensionContext): void
 {
-	channel = vscode.window.createOutputChannel("Mutagen");
+	channel = vscode.window.createOutputChannel("Better Mutagen");
 	context.subscriptions.push(channel);
 }
 
 /**
- * Appends a timestamped line to the "Mutagen" output channel.
+ * Appends a timestamped line to the "Better Mutagen" output channel.
  */
 export function log(message: string): void
 {
@@ -30,7 +30,7 @@ export function logError(message: string, err: unknown): void
 }
 
 /**
- * Brings the "Mutagen" output channel into view.
+ * Brings the "Better Mutagen" output channel into view.
  */
 export function showOutputChannel(): void
 {

@@ -29,7 +29,7 @@ export class StatusBarController implements vscode.Disposable
 		const error = this.provider.getLastError();
 		if (error)
 		{
-			this.item.text = "$(alert) Mutagen: error";
+			this.item.text = "$(alert) Better Mutagen: error";
 			this.item.tooltip = error;
 			this.item.backgroundColor = new vscode.ThemeColor("statusBarItem.errorBackground");
 			this.item.color = undefined;
@@ -66,7 +66,7 @@ export class StatusBarController implements vscode.Disposable
 		}
 
 		const icon = errored || disconnected ? "$(error)" : conflicts ? "$(warning)" : paused === sessions.length ? "$(debug-pause)" : "$(sync)";
-		this.item.text = `${icon} Mutagen: ${parts.join(", ")}`;
+		this.item.text = `${icon} Better Mutagen: ${parts.join(", ")}`;
 		this.item.tooltip = `${sessions.length} sync session(s) — click for actions`;
 
 		if (errored || disconnected)

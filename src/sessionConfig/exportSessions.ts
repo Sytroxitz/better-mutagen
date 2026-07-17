@@ -17,7 +17,7 @@ export function registerExportSessionsCommand(context: vscode.ExtensionContext, 
 			const sessions = provider.getVisibleSessions();
 			if (sessions.length === 0)
 			{
-				vscode.window.showInformationMessage("Mutagen: no sync sessions to export.");
+				vscode.window.showInformationMessage("Better Mutagen: no sync sessions to export.");
 				return;
 			}
 
@@ -51,14 +51,14 @@ export function registerExportSessionsCommand(context: vscode.ExtensionContext, 
 			{
 				await vscode.workspace.fs.writeFile(targetUri, Buffer.from(yaml, "utf8"));
 				const message = uncertainSessionNames.length
-					? `Mutagen: exported ${picks.length} session(s) to ${targetUri.fsPath}. Remote endpoints are reconstructed best-effort — please double-check the connection string for: ${uncertainSessionNames.join(", ")}.`
-					: `Mutagen: exported ${picks.length} session(s) to ${targetUri.fsPath}.`;
+					? `Better Mutagen: exported ${picks.length} session(s) to ${targetUri.fsPath}. Remote endpoints are reconstructed best-effort — please double-check the connection string for: ${uncertainSessionNames.join(", ")}.`
+					: `Better Mutagen: exported ${picks.length} session(s) to ${targetUri.fsPath}.`;
 				vscode.window.showInformationMessage(message);
 			}
 			catch (err)
 			{
 				logError("Failed to export sessions", err);
-				const choice = await vscode.window.showErrorMessage(`Mutagen: failed to export sessions: ${(err as Error).message}`, "Show Logs");
+				const choice = await vscode.window.showErrorMessage(`Better Mutagen: failed to export sessions: ${(err as Error).message}`, "Show Logs");
 				if (choice === "Show Logs")
 				{
 					showOutputChannel();

@@ -45,12 +45,12 @@ export function registerImportSessionsCommand(context: vscode.ExtensionContext, 
 					() => client.startProject(fileUri.fsPath, path.dirname(fileUri.fsPath))
 				);
 				await provider.refresh();
-				vscode.window.showInformationMessage(`Mutagen: sessions from "${fileName}" imported.`);
+				vscode.window.showInformationMessage(`Better Mutagen: sessions from "${fileName}" imported.`);
 			}
 			catch (err)
 			{
 				logError("Failed to import sessions", err);
-				const choice = await vscode.window.showErrorMessage(`Mutagen: failed to import sessions: ${(err as Error).message}`, "Show Logs");
+				const choice = await vscode.window.showErrorMessage(`Better Mutagen: failed to import sessions: ${(err as Error).message}`, "Show Logs");
 				if (choice === "Show Logs")
 				{
 					showOutputChannel();
