@@ -1,0 +1,64 @@
+name: Bump version and publish to Marketplace
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type-check, lint, and build
+        run: |
+          npm run check-types
+          npm run lint
+          npm run compile
+
+      - name: Determine version bump
+        id: bump
+        run: |
+          MSG="${{ github.event.head_commit.message }}"
+          if [[ "$MSG" == *"[major]"* ]]; then
+            echo "type=major" >> "$GITHUB_OUTPUT"
+          elif [[ "$MSG" == *"[minor]"* ]]; then
+            echo "type=minor" >> "$GITHUB_OUTPUT"
+          else
+            echo "type=patch" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Configure git identity for the release commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Bump version, commit, and tag
+        run: npm version ${{ steps.bump.outputs.type }} -m "chore(release): v%s [skip ci]"
+
+      - name: Push version bump and tag
+        run: git push --follow-tags
+
+      - name: Publish to Visual Studio Marketplace
+        run: npx vsce publish
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}

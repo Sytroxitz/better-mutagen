@@ -3,8 +3,11 @@
   "displayName": "Better Mutagen",
   "description": "Manage Mutagen file-sync sessions from VS Code. Installs and manages its own Mutagen binary — nothing is left behind when you uninstall.",
   "version": "0.1.0",
-  "private": true,
-  "publisher": "local",
+  "publisher": "slxytxz",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Sytroxitz/better-mutagen.git"
+  },
   "engines": {
     "vscode": "^1.85.0"
   },
