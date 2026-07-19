@@ -2,15 +2,18 @@ import * as vscode from "vscode";
 import { MutagenClient } from "../mutagen/client";
 import { SessionTreeProvider } from "../views/sessionTreeProvider";
 import { BinaryManager } from "../binary/binaryManager";
+import { SyncSession } from "../mutagen/types";
+import { TreeNode } from "../views/treeNodes";
 import { runCreateSessionWizard } from "./createSession";
 import { registerSessionActionCommands } from "./sessionActions";
 import { registerVisibilityCommands } from "./visibilityActions";
+import { resolveSession } from "./sessionArg";
 import { registerExportSessionsCommand } from "../sessionConfig/exportSessions";
 import { registerImportSessionsCommand } from "../sessionConfig/importSessions";
 import { logError, showOutputChannel } from "../util/logger";
 
 /**
- * Registers the top-level (non session-action) commands: create session,
+ * Registers the top-level (non session-action) commands: create/edit session,
  * reinstall binary, session visibility, and session export/import.
  */
 export function registerCommands(
@@ -27,6 +30,16 @@ export function registerCommands(
 
 	context.subscriptions.push(
 		vscode.commands.registerCommand("mutagen.createSession", () => runCreateSessionWizard(client, provider)),
+
+		vscode.commands.registerCommand("mutagen.editSession", async (arg?: TreeNode | SyncSession) =>
+		{
+			const session = await resolveSession(arg, provider);
+			if (!session)
+			{
+				return;
+			}
+			await runCreateSessionWizard(client, provider, session);
+		}),
 
 		vscode.commands.registerCommand("mutagen.reinstallBinary", async () =>
 		{

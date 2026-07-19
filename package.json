@@ -51,6 +51,12 @@
         "icon": "$(add)"
       },
       {
+        "command": "mutagen.editSession",
+        "title": "Edit Session",
+        "category": "Better Mutagen",
+        "icon": "$(edit)"
+      },
+      {
         "command": "mutagen.refresh",
         "title": "Refresh Sessions",
         "category": "Better Mutagen",
@@ -191,9 +197,14 @@
           "group": "inline@1"
         },
         {
-          "command": "mutagen.terminateSession",
+          "command": "mutagen.editSession",
           "when": "view == mutagenSessions && viewItem =~ /session/",
           "group": "inline@2"
+        },
+        {
+          "command": "mutagen.terminateSession",
+          "when": "view == mutagenSessions && viewItem =~ /session/",
+          "group": "inline@3"
         },
         {
           "command": "mutagen.resetSession",
@@ -213,12 +224,12 @@
         {
           "command": "mutagen.hideSession",
           "when": "view == mutagenSessions && viewItem =~ /visible/",
-          "group": "inline@3"
+          "group": "inline@4"
         },
         {
           "command": "mutagen.unhideSession",
           "when": "view == mutagenSessions && viewItem =~ /hidden/",
-          "group": "inline@3"
+          "group": "inline@4"
         }
       ],
       "commandPalette": [
@@ -252,6 +263,10 @@
         },
         {
           "command": "mutagen.unhideSession",
+          "when": "false"
+        },
+        {
+          "command": "mutagen.editSession",
           "when": "false"
         }
       ]

@@ -179,6 +179,7 @@ export function registerSessionActionCommands(
 						: { label: "$(debug-pause) Pause", action: "mutagen.pauseSession" },
 					{ label: "$(sync) Flush", action: "mutagen.flushSession" },
 					{ label: "$(info) Show Details", action: "mutagen.openSessionDetails" },
+					{ label: "$(edit) Edit", action: "mutagen.editSession" },
 					{ label: "$(eye-closed) Hide", action: "mutagen.hideSession" },
 					{ label: "$(trash) Terminate", action: "mutagen.terminateSession" },
 				],
