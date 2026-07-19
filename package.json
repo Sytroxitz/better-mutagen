@@ -2,7 +2,7 @@
   "name": "better-mutagen",
   "displayName": "Better Mutagen",
   "description": "Manage Mutagen file-sync sessions from VS Code. Installs and manages its own Mutagen binary — nothing is left behind when you uninstall.",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "publisher": "slxytxz",
   "license": "MIT",
   "icon": "media/icon.png",
