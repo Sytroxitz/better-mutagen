@@ -5,6 +5,7 @@
   "version": "0.2.0",
   "publisher": "slxytxz",
   "license": "MIT",
+  "icon": "media/icon.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/Sytroxitz/better-mutagen.git"
