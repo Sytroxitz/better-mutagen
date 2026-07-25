@@ -1,5 +1,28 @@
 # Changelog
 
+## 0.3.0
+
+- Check GitHub for newer Mutagen releases when the version is set to `latest` and prompt to update (with an option to skip a version).
+- Switch the installed Mutagen version from the settings: the chosen release is installed and the previous one removed, so only the newest (or explicitly pinned) version is kept.
+- Download the binary via `fetch` with an `https` fallback, fixing "Parse Error" install failures behind some proxies/antivirus setups.
+- Honor the `mutagen.binary.version` and `mutagen.binary.customPath` settings (previously read under the wrong key and ignored), and fall back to `latest` if a pinned version can't be installed.
+
+## 0.2.1
+
+- Add an extension icon.
+
+## 0.2.0
+
+- Add the ability to edit existing sync sessions.
+
+## 0.1.2
+
+- Add the MIT license.
+
+## 0.1.1
+
+- Add an automated release workflow that builds and publishes to the Visual Studio Marketplace.
+
 ## 0.1.0
 
 Initial version.
