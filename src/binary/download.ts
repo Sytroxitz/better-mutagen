@@ -1,62 +1,10 @@
-import * as https from "https";
 import * as fs from "fs";
 import * as path from "path";
 import * as tar from "tar";
 import AdmZip from "adm-zip";
 
-export interface DownloadProgress
-{
-  (receivedBytes: number, totalBytes: number): void;
-}
-
-/** Downloads a URL to a local file, following redirects (GitHub asset URLs redirect to S3). */
-export function downloadToFile(
-	url: string,
-	destPath: string,
-	onProgress?: DownloadProgress,
-	redirectsLeft = 5
-): Promise<void>
-{
-	return new Promise((resolve, reject) =>
-	{
-		const request = https.get(url, { headers: { "User-Agent": "better-mutagen-vscode-extension" } }, (res) =>
-		{
-			if (
-				res.statusCode &&
-        res.statusCode >= 300 &&
-        res.statusCode < 400 &&
-        res.headers.location &&
-        redirectsLeft > 0
-			)
-			{
-				res.resume();
-				downloadToFile(res.headers.location, destPath, onProgress, redirectsLeft - 1).then(resolve, reject);
-				return;
-			}
-			if (res.statusCode !== 200)
-			{
-				res.resume();
-				reject(new Error(`Download failed: ${res.statusCode} ${res.statusMessage} (${url})`));
-				return;
-			}
-
-			const total = Number(res.headers["content-length"] ?? 0);
-			let received = 0;
-			const file = fs.createWriteStream(destPath);
-
-			res.on("data", (chunk: Buffer) =>
-			{
-				received += chunk.length;
-				onProgress?.(received, total);
-			});
-
-			res.pipe(file);
-			file.on("finish", () => file.close(() => resolve()));
-			file.on("error", reject);
-		});
-		request.on("error", reject);
-	});
-}
+export { downloadToFile } from "./http";
+export type { DownloadProgress } from "./http";
 
 /**
  * Extracts a downloaded mutagen archive into destDir and returns the

@@ -45,8 +45,11 @@ export function registerCommands(
 		{
 			try
 			{
-				await binaryManager.reinstall();
-				await client.ensureDaemonRunning();
+				await provider.withPollingSuspended(async () =>
+				{
+					await binaryManager.reinstall();
+					await client.ensureDaemonRunning();
+				});
 				await provider.refresh();
 				vscode.window.showInformationMessage("Better Mutagen: binary reinstalled successfully.");
 			}

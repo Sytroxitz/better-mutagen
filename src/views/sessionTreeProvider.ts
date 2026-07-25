@@ -22,6 +22,7 @@ export class SessionTreeProvider implements vscode.TreeDataProvider<TreeNode>, v
 	private timer: ReturnType<typeof setInterval> | undefined;
 	private view: vscode.TreeView<TreeNode> | undefined;
 	private refreshing = false;
+	private pollingSuspended = false;
 	private hiddenIds: Set<string>;
 	private showHidden = false;
 
@@ -144,7 +145,7 @@ export class SessionTreeProvider implements vscode.TreeDataProvider<TreeNode>, v
    */
 	async refresh(): Promise<void>
 	{
-		if (this.refreshing)
+		if (this.refreshing || this.pollingSuspended)
 		{
 			return;
 		}
@@ -167,6 +168,30 @@ export class SessionTreeProvider implements vscode.TreeDataProvider<TreeNode>, v
 	}
 
 	/**
+   * Runs an operation that temporarily makes the binary/daemon unavailable
+   * (e.g. reinstalling the binary), suspending status polling for its duration
+   * so the view doesn't spam errors while there is nothing to talk to.
+   */
+	async withPollingSuspended<T>(operation: () => Promise<T>): Promise<T>
+	{
+		this.pollingSuspended = true;
+		if (this.timer)
+		{
+			clearInterval(this.timer);
+			this.timer = undefined;
+		}
+		try
+		{
+			return await operation();
+		}
+		finally
+		{
+			this.pollingSuspended = false;
+			this.reschedule();
+		}
+	}
+
+	/**
    * Starts or stops the polling timer depending on whether the view is currently visible.
    */
 	private reschedule(): void
@@ -176,7 +201,7 @@ export class SessionTreeProvider implements vscode.TreeDataProvider<TreeNode>, v
 			clearInterval(this.timer);
 			this.timer = undefined;
 		}
-		if (!this.view?.visible)
+		if (this.pollingSuspended || !this.view?.visible)
 		{
 			return;
 		}

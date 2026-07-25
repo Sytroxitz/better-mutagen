@@ -278,7 +278,7 @@
         "mutagen.binary.version": {
           "type": "string",
           "default": "latest",
-          "description": "Mutagen release to install (\"latest\" or a specific tag like \"v0.18.1\")."
+          "description": "Mutagen release to install (\"latest\" or a specific tag like \"v0.18.1\"). With \"latest\", the extension checks for newer releases on activation and offers to update; pin a specific tag to disable update checks and stay on exactly that version. Changing this reinstalls the requested release and removes the previous one. If a pinned version can't be installed, the extension falls back to \"latest\" and resets this setting to \"latest\"."
         },
         "mutagen.binary.customPath": {
           "type": "string",

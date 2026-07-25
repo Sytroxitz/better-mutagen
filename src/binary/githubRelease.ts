@@ -1,4 +1,4 @@
-import * as https from "https";
+import { getJson } from "./http";
 import { PlatformTokens } from "./platform";
 
 export interface GithubAsset
@@ -15,66 +15,18 @@ export interface GithubRelease
 }
 
 const REPO = "mutagen-io/mutagen";
-const USER_AGENT = "better-mutagen-vscode-extension";
 
 /**
- * Performs a GET request against the GitHub API and parses the JSON response, following redirects.
- */
-function get<T>(url: string): Promise<T>
-{
-	return new Promise((resolve, reject) =>
-	{
-		const request = https.get(
-			url,
-			{ headers: { "User-Agent": USER_AGENT, Accept: "application/vnd.github+json" } },
-			(res) =>
-			{
-				if (
-					res.statusCode &&
-          res.statusCode >= 300 &&
-          res.statusCode < 400 &&
-          res.headers.location
-				)
-				{
-					res.resume();
-					get<T>(res.headers.location).then(resolve, reject);
-					return;
-				}
-				if (res.statusCode !== 200)
-				{
-					res.resume();
-					reject(new Error(`GitHub API request failed: ${res.statusCode} ${res.statusMessage} (${url})`));
-					return;
-				}
-				let body = "";
-				res.setEncoding("utf8");
-				res.on("data", (chunk) => (body += chunk));
-				res.on("end", () =>
-				{
-					try
-					{
-						resolve(JSON.parse(body) as T);
-					}
-					catch (err)
-					{
-						reject(new Error(`Failed to parse GitHub API response from ${url}: ${(err as Error).message}`));
-					}
-				});
-			}
-		);
-		request.on("error", reject);
-	});
-}
-
-/**
- * Fetches release metadata from GitHub, either the latest release or a specific tag.
+ * Fetches release metadata from GitHub, either the latest release or a specific
+ * tag. The shared HTTP layer retries and falls back across transports (see
+ * binary/http.ts).
  */
 export async function fetchRelease(versionOrLatest: string): Promise<GithubRelease>
 {
 	const url = versionOrLatest === "latest" || !versionOrLatest
 		? `https://api.github.com/repos/${REPO}/releases/latest`
 		: `https://api.github.com/repos/${REPO}/releases/tags/${encodeURIComponent(versionOrLatest)}`;
-	return get<GithubRelease>(url);
+	return getJson<GithubRelease>(url);
 }
 
 /**

@@ -3,4 +3,5 @@ dist/
 out/
 *.vsix
 bin/
+bin.staging/
 .vscode-test/

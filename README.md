@@ -17,6 +17,7 @@ Your sync session configuration/history (Mutagen's own daemon state under your u
 - **Hide/unhide sessions** to declutter the view without terminating them (view title has a toggle to reveal hidden sessions again).
 - **Export/Import Sessions**: export selected sessions to a shareable mutagen project YAML file, and import one to recreate/start those sessions — a simple way to hand a sync setup to someone else.
 - Optional per-workspace project file (default `.mutagen.yml`, configurable) — if present, its sessions can auto-start when the workspace opens, using Mutagen's own `mutagen project` orchestration.
+- **Automatic update checks**: when `mutagen.binary.version` is `"latest"`, the extension checks GitHub on activation and prompts you when a newer Mutagen release is available (with an option to skip that version). Pin a specific version and update checks are disabled — you get exactly that version. Changing the version setting reinstalls the requested release and removes the previous one, so only the newest (or explicitly chosen) version is ever installed.
 - All executed commands and their output are logged to the "Mutagen" output channel (**Mutagen: Show Logs**).
 
 ## Settings

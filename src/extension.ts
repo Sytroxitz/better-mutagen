@@ -1,5 +1,6 @@
 import * as vscode from "vscode";
 import { BinaryManager, ensureBinaryOrNotify } from "./binary/binaryManager";
+import { registerBinaryUpdates } from "./binary/binaryUpdates";
 import { MutagenClient } from "./mutagen/client";
 import { TreeNode } from "./views/treeNodes";
 import { SessionTreeProvider } from "./views/sessionTreeProvider";
@@ -95,6 +96,7 @@ export async function activate(context: vscode.ExtensionContext): Promise<void>
 
 	registerCommands(context, client, provider, binaryManager);
 	registerProjectCommands(context, client, () => provider.refresh());
+	registerBinaryUpdates(context, binaryManager, client, provider);
 
 	await autoStartProjectSessions(client);
 	await provider.refresh();
